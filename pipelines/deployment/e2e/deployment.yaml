@@ -1,0 +1,25 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: e2e
+  labels:
+    app: e2e
+spec:
+  ttlSecondsAfterFinished: 300
+  template:
+    metadata:
+      labels:
+        app: e2e
+    spec:
+      volumes:
+        - name: e2e-results-pvc
+          persistentVolumeClaim:
+            claimName: e2e-results-pvc
+      containers:
+        - name: e2e
+          image: e2e-image:latest
+          volumeMounts:
+            - mountPath: /e2e/cypress/report
+              name: e2e-results
+      restartPolicy: Never
+  backoffLimit: 0
