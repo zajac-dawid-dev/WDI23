@@ -4,8 +4,7 @@ stages:
   - stage: Build_Docker_Image
     jobs:
       - job: Docker_Build
-        pool:
-          vmImage: ubuntu-latest
+        pool: MikrusSelfHosted
         steps:
           - checkout: self
             path: '$(Agent.BuildDirectory)/wdi23'
