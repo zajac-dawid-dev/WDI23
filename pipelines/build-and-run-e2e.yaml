@@ -1,7 +1,7 @@
 trigger: none
 
 stages:
-  - stage: Build Docker image
+  - stage: Build_Docker_Image
     jobs:
       - job: Docker build
         pool:
