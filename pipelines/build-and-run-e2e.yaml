@@ -7,7 +7,7 @@ stages:
         pool: Default
         steps:
           - checkout: self
-            path: '$(Agent.BuildDirectory)/wdi23'
+            path: '/wdi23'
 
           - task: Docker@2
             displayName: Build docker image
@@ -15,4 +15,4 @@ stages:
               containerRegistry:
               repository: wdi23-e2e
               command: 'buildAndPush'
-              Dockerfile: '$(Agent.BuildDirectory)/wdi23/e2e/Dockerfile'
+              Dockerfile: '/wdi23/e2e/Dockerfile'
