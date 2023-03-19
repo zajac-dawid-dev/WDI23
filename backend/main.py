@@ -5,4 +5,4 @@ app = FastAPI()
 
 @app.get("/test")
 async def root():
-    return {"message": "WDI23 - Dawid Zając"}
+    return {"message": "WDI-23"}

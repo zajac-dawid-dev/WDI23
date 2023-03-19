@@ -1,0 +1,19 @@
+trigger: none
+
+stages:
+  - stage: Build Docker image
+    jobs:
+      - job: Docker build
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          - checkout: self
+            path: '$(Agent.BuildDirectory)/wdi23'
+
+          - task: Docker@2
+            displayName: Build docker image
+            inputs:
+              containerRegistry:
+              repository: wdi23-e2e
+              command: 'buildAndPush'
+              Dockerfile: '$(Agent.BuildDirectory)/wdi23/backend/Dockerfile'
