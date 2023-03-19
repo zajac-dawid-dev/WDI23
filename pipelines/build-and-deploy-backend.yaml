@@ -4,7 +4,7 @@ stages:
   - stage: Build_Docker_Image
     jobs:
       - job: Docker_Build
-        pool: MikrusSelfHosted
+        pool: Default
         steps:
           - checkout: self
             path: '$(Agent.BuildDirectory)/wdi23'
