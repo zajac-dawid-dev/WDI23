@@ -15,4 +15,4 @@ stages:
               containerRegistry:
               repository: wdi23-backend
               command: 'buildAndPush'
-              Dockerfile: '/backend/Dockerfile'
+              Dockerfile: '$(Agent.BuildDirectory)/wdi23/backend/Dockerfile'

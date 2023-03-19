@@ -15,4 +15,4 @@ stages:
               containerRegistry:
               repository: wdi23-e2e
               command: 'buildAndPush'
-              Dockerfile: '/e2e/Dockerfile'
+              Dockerfile: '$(Agent.BuildDirectory)/wdi23/e2e/Dockerfile'
