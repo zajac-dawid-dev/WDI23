@@ -1,3 +1,3 @@
-FROM mcr.microsoft.com/playwright:v1.31.0-jammy
+FROM cypress/included:12.8.1
 
-ENTRYPOINT [""]
+ENTRYPOINT ["npm", "run", "test"]

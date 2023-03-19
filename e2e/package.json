@@ -1,0 +1,13 @@
+{
+  "name": "e2e",
+  "version": "1.0.0",
+  "description": "WDI23 - Dawid Zając example",
+  "scripts": {
+    "test": "cypress run --headless"
+  },
+  "author": "Dawid Zając",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^12.8.1"
+  }
+}

@@ -339,9 +339,13 @@ pip-selfcheck.json
 # http://iamzed.com/2009/05/07/a-primer-on-virtualenv/
 
 # End of https://www.toptal.com/developers/gitignore/api/terraform,intellij,python,venv,virtualenv
-node_modules/
-/test-results/
-/playwright-report/
-/playwright/.cache/
+### CypressIO ###
+# gitignore template for the CypressIO, browser test framework
+# website: https://www.cypress.io/
+e2e/node_modules/*
+e2e/cypress/results/*
+e2e/cypress/reports/*
+e2e/cypress/screenshots/*
+e2e/cypress/videos/*
 
 
