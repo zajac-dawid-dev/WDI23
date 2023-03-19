@@ -1,25 +1,25 @@
 #Resource group
 resource "azurerm_resource_group" "aks-rg" {
-  name     = var.resource_group_name
-  location = var.location
+  name     = "wdi23"
+  location = "West Europe"
 }
 
 #ACR
 resource "azurerm_container_registry" "acr" {
-  name                = var.acr_name
+  name                = "wdi23-container-registry"
   resource_group_name = azurerm_resource_group.aks-rg.name
-  location            = var.location
+  location            = azurerm_resource_group.aks-rg.location
   sku                 = "Standard"
   admin_enabled       = false
 }
 
 #AKS
 resource "azurerm_kubernetes_cluster" "aks" {
-  name                = var.cluster_name
-  kubernetes_version  = var.kubernetes_version
-  location            = var.location
+  name                = "wdi23-aks"
+  kubernetes_version  = "1.25.5"
+  location            = azurerm_resource_group.aks-rg.location
   resource_group_name = azurerm_resource_group.aks-rg.name
-  dns_prefix          = var.cluster_name
+  dns_prefix          = azurerm_kubernetes_cluster.aks.name
 
   default_node_pool {
     name                = "default"
@@ -34,21 +34,36 @@ resource "azurerm_kubernetes_cluster" "aks" {
   }
 }
 
+#Kubeconfig
+resource "local_file" "kubeconfig" {
+  depends_on   = [azurerm_kubernetes_cluster.aks]
+  filename     = "kubeconfig"
+  content      = azurerm_kubernetes_cluster.aks.kube_config_raw
+}
+
+#Network watcher
+resource "azurerm_network_watcher" "example" {
+  name                = "wdi23-network-watcher"
+  location            = azurerm_resource_group.aks-rg.location
+  resource_group_name = azurerm_resource_group.aks-rg.name
+}
+
 #Managed disk
 resource "azurerm_managed_disk" "md" {
   create_option        = "Empty"
-  location             = var.location
-  name                 = "wdi23md"
+  location             = azurerm_resource_group.aks-rg.location
+  name                 = "wdi23-managed-disk"
   resource_group_name  = azurerm_resource_group.aks-rg.name
   storage_account_type = "Standard_LRS"
   disk_size_gb         = "1"
 }
 
+#Azure Key vault
 data "azurerm_client_config" "current" {}
 
 resource "azurerm_key_vault" "kv" {
-  location            = var.location
-  name                = wdi23kv
+  location            = azurerm_resource_group.aks-rg.location
+  name                = "wdi23-key-vault"
   resource_group_name = azurerm_resource_group.aks-rg.name
   sku_name            = "Standard"
   tenant_id           = data.azurerm_client_config.current.tenant_id

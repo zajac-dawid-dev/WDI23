@@ -1,5 +1,0 @@
-resource_group_name = "wdi23"
-cluster_name = "wdi23aks"
-kubernetes_version = "1.25.5"
-acr_name = "wdi23acr"
-location = "West Europe"
