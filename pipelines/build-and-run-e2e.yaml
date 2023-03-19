@@ -9,6 +9,10 @@ stages:
           - checkout: self
             path: 'wdi23'
 
+          - script: ls -la
+
+          - script: ls -la /wdi23
+
           - task: Docker@2
             displayName: Build docker image
             inputs:
