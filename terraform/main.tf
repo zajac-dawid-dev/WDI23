@@ -43,3 +43,15 @@ resource "azurerm_managed_disk" "md" {
   storage_account_type = "Standard_LRS"
   disk_size_gb         = "1"
 }
+
+data "azurerm_client_config" "current" {}
+
+resource "azurerm_key_vault" "kv" {
+  location            = var.location
+  name                = wdi23kv
+  resource_group_name = azurerm_resource_group.aks-rg.name
+  sku_name            = "Standard"
+  tenant_id           = data.azurerm_client_config.current.tenant_id
+  soft_delete_retention_days  = 7
+  purge_protection_enabled    = false
+}
