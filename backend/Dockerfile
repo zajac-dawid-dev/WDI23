@@ -2,7 +2,7 @@ FROM python:alpine3.17
 
 WORKDIR ./backend
 
-COPY requirements.txt ./environment.txt
+COPY requirements.txt ./requirements.txt
 COPY main.py ./main.py
 
 RUN pip install -r requirements.txt
