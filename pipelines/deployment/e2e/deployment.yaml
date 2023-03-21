@@ -19,7 +19,7 @@ spec:
             claimName: e2e-results-pvc
       containers:
         - name: e2e
-          image: e2e-image:latest
+          image: wdi23acr.azurecr.io/e2e-image:latest
           volumeMounts:
             - mountPath: /e2e/cypress/report
               name: e2e-results

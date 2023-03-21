@@ -18,7 +18,7 @@ spec:
         - name: regcred
       containers:
         - name: backend
-          image: backend-image:latest
+          image: wdi23acr.azurecr.io/backend-image:latest
           ports:
             - name: http
               containerPort: 80
