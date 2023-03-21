@@ -17,3 +17,17 @@ stages:
               command: 'buildAndPush'
               Dockerfile: '$(Agent.BuildDirectory)/wdi23/backend/Dockerfile'
               tags: 'latest'
+
+          - task: KubernetesManifest@0
+            inputs:
+              action: 'deploy'
+              kubernetesServiceConnection: 'wdi23aks'
+              namespace: 'test'
+              manifests: '$(Agent.BuildDirectory)/wdi23/pipelines/deployment/backend/deployment.yaml'
+
+          - task: KubernetesManifest@0
+            inputs:
+              action: 'deploy'
+              kubernetesServiceConnection: 'wdi23aks'
+              namespace: 'test'
+              manifests: '$(Agent.BuildDirectory)/wdi23/pipelines/deployment/backend/service.yaml'

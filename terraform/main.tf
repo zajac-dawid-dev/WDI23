@@ -41,13 +41,6 @@ resource "local_file" "kubeconfig" {
   content      = azurerm_kubernetes_cluster.aks.kube_config_raw
 }
 
-#Network watcher
-resource "azurerm_network_watcher" "example" {
-  name                = "wdi23nw"
-  location            = azurerm_resource_group.aks-rg.location
-  resource_group_name = azurerm_resource_group.aks-rg.name
-}
-
 #Managed disk
 resource "azurerm_managed_disk" "md" {
   create_option        = "Empty"
@@ -69,4 +62,19 @@ resource "azurerm_key_vault" "kv" {
   tenant_id           = data.azurerm_client_config.current.tenant_id
   soft_delete_retention_days  = 7
   purge_protection_enabled    = false
+}
+
+resource "azurerm_key_vault_access_policy" "kvap" {
+  key_vault_id = azurerm_key_vault.kv.id
+  tenant_id    = data.azurerm_client_config.current.tenant_id
+  object_id    = data.azurerm_client_config.current.object_id
+
+  key_permissions = [
+    "Get",
+    "List",
+  ]
+
+  secret_permissions = [
+    "Get",
+  ]
 }
