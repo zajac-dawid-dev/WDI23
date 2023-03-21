@@ -21,5 +21,9 @@ spec:
           volumeMounts:
             - mountPath: /e2e/cypress/report
               name: e2e-results
+          lifecycle:
+            preStop:
+              exec:
+                command: ["curl", "-XPOST", "-u", "\":PAT-Token\"", "-H", "Content-type: application/json", "https://dev.azure.com/wdi23-dzaj/wdi23-dzaj/_apis/pipelines/{pipelineId}/runs?api-version=7.0"]
       restartPolicy: Never
   backoffLimit: 0

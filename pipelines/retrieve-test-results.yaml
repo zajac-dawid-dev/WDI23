@@ -1,1 +1,7 @@
 trigger: none
+
+pool: Default
+
+steps:
+  - script: echo "test"
+    displayName: "Retrieve test results from persistent volume"

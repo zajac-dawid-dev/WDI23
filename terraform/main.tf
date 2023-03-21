@@ -6,7 +6,7 @@ resource "azurerm_resource_group" "aks-rg" {
 
 #ACR
 resource "azurerm_container_registry" "acr" {
-  name                = "wdi23-container-registry"
+  name                = "wdi23acr"
   resource_group_name = azurerm_resource_group.aks-rg.name
   location            = azurerm_resource_group.aks-rg.location
   sku                 = "Standard"
@@ -15,11 +15,11 @@ resource "azurerm_container_registry" "acr" {
 
 #AKS
 resource "azurerm_kubernetes_cluster" "aks" {
-  name                = "wdi23-aks"
+  name                = "wdi23aks"
   kubernetes_version  = "1.25.5"
   location            = azurerm_resource_group.aks-rg.location
   resource_group_name = azurerm_resource_group.aks-rg.name
-  dns_prefix          = azurerm_kubernetes_cluster.aks.name
+  dns_prefix          = "wdi23aks"
 
   default_node_pool {
     name                = "default"
@@ -43,7 +43,7 @@ resource "local_file" "kubeconfig" {
 
 #Network watcher
 resource "azurerm_network_watcher" "example" {
-  name                = "wdi23-network-watcher"
+  name                = "wdi23nw"
   location            = azurerm_resource_group.aks-rg.location
   resource_group_name = azurerm_resource_group.aks-rg.name
 }
@@ -52,7 +52,7 @@ resource "azurerm_network_watcher" "example" {
 resource "azurerm_managed_disk" "md" {
   create_option        = "Empty"
   location             = azurerm_resource_group.aks-rg.location
-  name                 = "wdi23-managed-disk"
+  name                 = "wdi23md"
   resource_group_name  = azurerm_resource_group.aks-rg.name
   storage_account_type = "Standard_LRS"
   disk_size_gb         = "1"
@@ -63,9 +63,9 @@ data "azurerm_client_config" "current" {}
 
 resource "azurerm_key_vault" "kv" {
   location            = azurerm_resource_group.aks-rg.location
-  name                = "wdi23-key-vault"
+  name                = "wdi23kv"
   resource_group_name = azurerm_resource_group.aks-rg.name
-  sku_name            = "Standard"
+  sku_name            = "standard"
   tenant_id           = data.azurerm_client_config.current.tenant_id
   soft_delete_retention_days  = 7
   purge_protection_enabled    = false

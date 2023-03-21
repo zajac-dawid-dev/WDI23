@@ -12,7 +12,8 @@ stages:
           - task: Docker@2
             displayName: Build docker image
             inputs:
-              containerRegistry:
+              containerRegistry: wdi23acr
               repository: wdi23-e2e
               command: 'buildAndPush'
               Dockerfile: '$(Agent.BuildDirectory)/wdi23/e2e/Dockerfile'
+              tags: 'latest'
