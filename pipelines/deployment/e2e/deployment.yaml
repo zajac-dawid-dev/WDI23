@@ -11,6 +11,8 @@ spec:
       labels:
         app: e2e
     spec:
+      imagePullSecrets:
+        - name: regcred
       volumes:
         - name: e2e-results-pvc
           persistentVolumeClaim:

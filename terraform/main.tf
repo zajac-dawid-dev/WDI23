@@ -10,7 +10,7 @@ resource "azurerm_container_registry" "acr" {
   resource_group_name = azurerm_resource_group.aks-rg.name
   location            = azurerm_resource_group.aks-rg.location
   sku                 = "Standard"
-  admin_enabled       = false
+  admin_enabled       = true
 }
 
 #AKS
@@ -69,12 +69,9 @@ resource "azurerm_key_vault_access_policy" "kvap" {
   tenant_id    = data.azurerm_client_config.current.tenant_id
   object_id    = data.azurerm_client_config.current.object_id
 
-  key_permissions = [
-    "Get",
-    "List",
-  ]
-
   secret_permissions = [
     "Get",
+    "List",
+    "Set",
   ]
 }
