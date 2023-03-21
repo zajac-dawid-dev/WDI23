@@ -4,7 +4,7 @@ stages:
   - stage: Build_Docker_Image
     jobs:
       - job: Docker_Build
-        pool: Default
+        pool: SelfHosted
         steps:
           - checkout: self
             path: 'wdi23'
