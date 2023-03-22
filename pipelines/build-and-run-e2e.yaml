@@ -18,11 +18,22 @@ stages:
 
           - task: CmdLine@2
             inputs:
-              script: "sed -i 's/__USER_PAT__/$(WDI-PAT)/g' $(Agent.BuildDirectory)/wdi23/pipelines/deployment/e2e/deployment.yaml"
+              script: 'echo $(Your-Secret-Name) > secret.txt'
 
-          - task: CmdLine@2
+          - task: CopyFiles@2
             inputs:
-              script: "cat $(Agent.BuildDirectory)/wdi23/pipelines/deployment/e2e/deployment.yaml"
+              Contents: secret.txt
+              targetFolder: '$(Build.ArtifactStagingDirectory)'
+
+          - task: PublishBuildArtifacts@1
+            inputs:
+              PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+              ArtifactName: 'drop'
+              publishLocation: 'Container'
+
+#          - task: CmdLine@2
+#            inputs:
+#              script: "sed -i 's/__USER_PAT__/$(WDI-PAT)/g' $(Agent.BuildDirectory)/wdi23/pipelines/deployment/e2e/deployment.yaml"
 
           - task: Docker@2
             displayName: Build docker image
