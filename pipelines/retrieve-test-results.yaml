@@ -3,5 +3,33 @@ trigger: none
 pool: Default
 
 steps:
-  - script: echo "test"
-    displayName: "Retrieve test results from persistent volume"
+  - task: KubectlInstaller@0
+    inputs:
+      kubectlVersion: 'latest'
+
+  - task: Kubernetes@1
+    inputs:
+      connectionType: 'Kubernetes Service Connection'
+      kubernetesServiceEndpoint: 'wdi23aks'
+      namespace: 'e2e'
+      command: 'apply'
+      arguments: '-f $(Agent.BuildDirectory)/wdi23/pipelines/deployment/results/deployment.yaml'
+
+  - task: CmdLine@2
+    inputs:
+      script: 'kubectl cp --namespace e2e e2e-results-retrieve:/mnt/e2e/cypress/report/test-output.xml ./test-output.xml'
+      workingDirectory: '$(Agent.BuildDirectory)'
+
+  - task: Kubernetes@1
+    inputs:
+      connectionType: 'Kubernetes Service Connection'
+      kubernetesServiceEndpoint: 'wdi23aks'
+      namespace: 'e2e'
+      command: 'delete'
+      arguments: 'e2e-results-retrieve'
+
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '**/test-output.xml'
+      searchFolder: '$(Agent.BuildDirectory)'
