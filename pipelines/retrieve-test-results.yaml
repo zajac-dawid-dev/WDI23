@@ -3,6 +3,9 @@ trigger: none
 pool: SelfHosted
 
 steps:
+  - checkout: self
+    path: 'wdi23'
+
   - task: KubectlInstaller@0
     inputs:
       kubectlVersion: 'latest'
