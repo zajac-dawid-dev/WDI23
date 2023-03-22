@@ -6,8 +6,10 @@ metadata:
     run: backend
 spec:
   ports:
-    - port: 8080
+    - port: 4700
+      targetPort: 4700
       protocol: TCP
   selector:
     app: backend
   type: LoadBalancer
+  externalTrafficPolicy: Local
