@@ -24,3 +24,7 @@ https://www.youtube.com/watch?v=ULXhozeoH0U&t=478s
 https://medium.com/bb-tutorials-and-thoughts/how-to-deploy-nodejs-apis-on-azure-aks-using-helm-8b37ab190d4e
 
 https://www.youtube.com/watch?v=yhyTK0k-WkY
+
+
+
+KV - resource connection -> kv access policy - list get
