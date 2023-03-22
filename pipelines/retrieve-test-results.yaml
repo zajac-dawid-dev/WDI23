@@ -16,7 +16,7 @@ steps:
       kubernetesServiceEndpoint: 'wdi23aks'
       namespace: 'e2e'
       command: 'apply'
-      arguments: '-f $(Agent.BuildDirectory)/wdi23/pipelines/deployment/results/deployment.yaml'
+      arguments: '-f $(Agent.BuildDirectory)/wdi23/pipelines/deployment/results/pod.yaml'
 
   - task: Kubernetes@1
     inputs:

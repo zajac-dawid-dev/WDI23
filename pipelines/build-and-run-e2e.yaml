@@ -18,14 +18,14 @@ stages:
 
           - task: CmdLine@2
             inputs:
-              script: "sed -i 's/__USER_PAT__/$(WDI-PAT)/g' $(Agent.BuildDirectory)/wdi23/pipelines/deployment/e2e/deployment.yaml"
+              script: "sed -i 's/__USER_PAT__/$(WDI-PAT)/g' $(Agent.BuildDirectory)/wdi23/pipelines/deployment/e2e/job.yaml"
 
           - bash: |
               echo "##vso[task.setvariable variable=retrievepipelineid;]$(curl -s -u ":$(WDI-PAT)" 'https://dev.azure.com/dejvis/wdi23/_apis/pipelines?api-version=7.0' | jq -r '.value[] | select(.name=="retrieve-test-results") | .id')"
 
           - task: CmdLine@2
             inputs:
-              script: "sed -i 's/__PIPELINE_ID__/$(retrievepipelineid)/g' $(Agent.BuildDirectory)/wdi23/pipelines/deployment/e2e/deployment.yaml"
+              script: "sed -i 's/__PIPELINE_ID__/$(retrievepipelineid)/g' $(Agent.BuildDirectory)/wdi23/pipelines/deployment/e2e/job.yaml"
 
           - task: Docker@2
             displayName: Build docker image
@@ -41,4 +41,4 @@ stages:
               kubernetesServiceConnection: 'wdi23aks'
               action: 'deploy'
               namespace: 'e2e'
-              manifests: '$(Agent.BuildDirectory)/wdi23/pipelines/deployment/e2e/deployment.yaml'
+              manifests: '$(Agent.BuildDirectory)/wdi23/pipelines/deployment/e2e/job.yaml'
