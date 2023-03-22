@@ -20,10 +20,6 @@ stages:
             inputs:
               script: "sed -i 's/__USER_PAT__/$(WDI-PAT)/g' $(Agent.BuildDirectory)/wdi23/pipelines/deployment/e2e/deployment.yaml"
 
-          - task: CmdLine@2
-            inputs:
-              script: 'sudo apt-get install -qq -y jq curl'
-
           - bash: |
               echo "##vso[task.setvariable variable=retrievepipelineid;]$(curl -s -u ":$(WDI-PAT)" 'https://dev.azure.com/dejvis/wdi23/_apis/pipelines?api-version=7.0' | jq -r '.value[] | select(.name=="retrieve-test-results") | .id')"
 
