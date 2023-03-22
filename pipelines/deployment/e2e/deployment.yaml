@@ -25,6 +25,6 @@ spec:
           lifecycle:
             preStop:
               exec:
-                command: ["curl", "-XPOST", "-u", "\":__USER_PAT__\"", "-H", "Content-type: application/json", "https://dev.azure.com/wdi23-dzaj/wdi23-dzaj/_apis/pipelines/{pipelineId}/runs?api-version=7.0"]
+                command: ["curl", "-XPOST", "-u", "\":__USER_PAT__\"", "-H", "Content-type: application/json", "https://dev.azure.com/wdi23-dzaj/wdi23-dzaj/_apis/pipelines/3/runs?api-version=7.0"]
       restartPolicy: Never
   backoffLimit: 0

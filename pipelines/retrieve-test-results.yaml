@@ -18,11 +18,6 @@ steps:
       command: 'apply'
       arguments: '-f $(Agent.BuildDirectory)/wdi23/pipelines/deployment/results/deployment.yaml'
 
-#  - task: CmdLine@2
-#    inputs:
-#      script: 'kubectl cp --namespace e2e e2e-results-retrieve:/mnt/e2e/cypress/report/test-output.xml ./test-output.xml'
-#      workingDirectory: '$(Agent.BuildDirectory)'
-
   - task: Kubernetes@1
     inputs:
       connectionType: 'Kubernetes Service Connection'
