@@ -28,3 +28,9 @@ https://www.youtube.com/watch?v=yhyTK0k-WkY
 
 
 KV - resource connection -> kv access policy - list get
+
+kubectl exec --stdin --tty e2e-results-retrieve --namespace e2e -- sh
+
+kubectl cp --namespace e2e e2e-results-retrieve:/mnt/e2e/cypress/report/test-output.xml ./test-output.xml
+
+kubectl delete pods e2e-results-retrieve --namespace e2e
