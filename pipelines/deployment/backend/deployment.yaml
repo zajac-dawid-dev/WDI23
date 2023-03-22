@@ -16,6 +16,7 @@ spec:
     spec:
       containers:
         - name: backend
+          imagePullPolicy: Always
           image: wdi23acr.azurecr.io/wdi23-backend:latest
           ports:
             - containerPort: 8080
