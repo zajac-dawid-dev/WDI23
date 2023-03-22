@@ -1,0 +1,30 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: e2e
+  labels:
+    app: e2e
+spec:
+  ttlSecondsAfterFinished: 60
+  template:
+    metadata:
+      labels:
+        app: e2e
+    spec:
+      volumes:
+        - name: e2e-results-pvc
+          persistentVolumeClaim:
+            claimName: e2e-results-pvc
+      containers:
+        - name: e2e
+          imagePullPolicy: Always
+          image: wdi23acr.azurecr.io/wdi23-e2e:latest
+          volumeMounts:
+            - mountPath: /mnt/e2e/cypress/report
+              name: e2e-results-pvc
+          lifecycle:
+            preStop:
+              exec:
+                command: ["curl", "-XPOST", "-u", "\":__USER_PAT__\"", "-H", "Content-type: application/json", "https://dev.azure.com/dejvis/wdi23/_apis/pipelines/__PIPELINE_ID__/runs?api-version=7.0"]
+      restartPolicy: Never
+  backoffLimit: 0

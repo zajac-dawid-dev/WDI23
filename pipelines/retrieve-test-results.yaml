@@ -1,0 +1,41 @@
+trigger: none
+
+pool: SelfHosted
+
+steps:
+  - checkout: self
+    path: 'wdi23'
+
+  - task: KubectlInstaller@0
+    inputs:
+      kubectlVersion: 'latest'
+
+  - task: Kubernetes@1
+    inputs:
+      connectionType: 'Kubernetes Service Connection'
+      kubernetesServiceEndpoint: 'wdi23aks'
+      namespace: 'e2e'
+      command: 'apply'
+      arguments: '-f $(Agent.BuildDirectory)/wdi23/pipelines/deployment/results/pod.yaml'
+
+  - task: Kubernetes@1
+    inputs:
+      connectionType: 'Kubernetes Service Connection'
+      kubernetesServiceEndpoint: 'wdi23aks'
+      namespace: 'e2e'
+      command: 'cp'
+      arguments: 'e2e-results-retrieve:/mnt/e2e/cypress/report/test-output.xml ./test-output.xml'
+
+  - task: Kubernetes@1
+    inputs:
+      connectionType: 'Kubernetes Service Connection'
+      kubernetesServiceEndpoint: 'wdi23aks'
+      namespace: 'e2e'
+      command: 'delete'
+      arguments: 'pods e2e-results-retrieve'
+
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '**/test-output.xml'
+      searchFolder: '$(Agent.BuildDirectory)'

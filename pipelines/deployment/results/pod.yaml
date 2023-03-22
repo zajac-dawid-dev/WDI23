@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: e2e-results-retrieve
+spec:
+  volumes:
+    - name: e2e-results-pvc
+      persistentVolumeClaim:
+        claimName: e2e-results-pvc
+  containers:
+    - name: busybox
+      image: busybox:1.28
+      args:
+        - sleep
+        - "5m"
+      volumeMounts:
+        - mountPath: /mnt/e2e/cypress/report
+          name: e2e-results-pvc
+  restartPolicy: Never
