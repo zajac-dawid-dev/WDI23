@@ -1,9 +1,6 @@
 describe('WDI23 - example test #1', () => {
-  it('Check endpoint', () => {
-    cy.request('GET', 'test').then(
-        (response) => {
-          expect(response.body).to.have.property('message', 'WDI-23')
-        }
-    )
+  it('Check online date', () => {
+    cy.visit('/');
+    cy.get('p[class="intro_main__date"]').first().contains('31.03.2023, online');
   })
 })
