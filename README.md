@@ -34,3 +34,7 @@ kubectl exec --stdin --tty e2e-results-retrieve --namespace e2e -- sh
 kubectl cp --namespace e2e e2e-results-retrieve:/mnt/e2e/cypress/report/test-output.xml ./test-output.xml
 
 kubectl delete pods e2e-results-retrieve --namespace e2e
+
+kubectl exec --stdin --tty e2e-x6bhc --namespace e2e -- sh
+
+kubectl logs --namespace e2e e2e-x6bhc

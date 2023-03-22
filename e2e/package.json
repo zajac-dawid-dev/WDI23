@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "WDI23 - Dawid Zając example",
   "scripts": {
-    "test": "cypress run --headless"
+    "test": "cypress run --headless --reporter-options \"mochaFile=/mnt/e2e/cypress/report/test-output.xml,toConsole=true\""
   },
   "author": "Dawid Zając",
   "license": "ISC",
