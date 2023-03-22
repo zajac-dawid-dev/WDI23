@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend-deployment
+  name: backend
   labels:
     app: backend
 spec:
@@ -14,12 +14,8 @@ spec:
       labels:
         app: backend
     spec:
-      imagePullSecrets:
-        - name: regcred
       containers:
         - name: backend
-          image: wdi23acr.azurecr.io/backend-image:latest
+          image: wdi23acr.azurecr.io/wdi23-backend:latest
           ports:
-            - name: http
-              containerPort: 80
-              protocol: TCP
+            - containerPort: 8080
