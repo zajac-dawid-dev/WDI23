@@ -20,7 +20,7 @@ spec:
           imagePullPolicy: Always
           image: wdi23acr.azurecr.io/wdi23-e2e:latest
           volumeMounts:
-            - mountPath: /e2e/cypress/report
+            - mountPath: /mnt/e2e/cypress/report
               name: e2e-results-pvc
           lifecycle:
             preStop:

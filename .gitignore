@@ -346,7 +346,8 @@ e2e/node_modules/*
 e2e/cypress/results/*
 e2e/cypress/reports/*
 e2e/cypress/screenshots/*
-e2e/cypress/videos/*
+e2e/cypress/videos
+e2e/results
 kubeconfig
 pat
 
