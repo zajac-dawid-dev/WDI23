@@ -12,13 +12,13 @@ stages:
           - task: AzureKeyVault@2
             inputs:
               azureSubscription: 'wdi23-dzaj'
-              KeyVaultName: 'wdi23'
+              KeyVaultName: 'wdi23kv'
               SecretsFilter: '*'
               RunAsPreJob: false
 
           - task: CmdLine@2
             inputs:
-              script: "sed -i 's/__USER_PAT__/$(WDI23-PAT-PIPELINES)/g'"
+              script: "sed -i 's/__USER_PAT__/$(WDI-PAT)/g'"
 
           - task: Docker@2
             displayName: Build docker image
