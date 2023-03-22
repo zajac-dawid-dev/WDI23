@@ -11,7 +11,7 @@ stages:
 
           - task: AzureKeyVault@2
             inputs:
-              azureSubscription: 'wdi23-dzaj'
+              azureSubscription: 'wdi23-dzaj(4d28aabf-80b8-4cdd-ae26-9d1032eb12bf)'
               KeyVaultName: 'wdi23kv'
               SecretsFilter: '*'
               RunAsPreJob: false
