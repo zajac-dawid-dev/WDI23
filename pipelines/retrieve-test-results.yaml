@@ -37,7 +37,7 @@ steps:
       kubernetesServiceEndpoint: 'wdi23aks'
       namespace: 'e2e'
       command: 'delete'
-      arguments: 'e2e-results-retrieve'
+      arguments: 'pods e2e-results-retrieve'
 
   - task: PublishTestResults@2
     inputs:
