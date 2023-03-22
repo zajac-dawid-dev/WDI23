@@ -1,4 +1,4 @@
-FROM cypress/browsers:node-18.14.1-chrome-110.0.5481.96-1-ff-109.0-edge-110.0.1587.41-1
+FROM cypress/browsers:node-18.14.1-chrome-111.0.5563.64-1-ff-111.0-edge-111.0.1661.43-1
 
 ENV ELECTRON_EXTRA_LAUNCH_ARGS: '--disable-gpu'
 
