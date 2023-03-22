@@ -1,5 +1,4 @@
 kubectl create namespace e2e
-kubectl create namespace test
 
 issue with aks 1.25
 https://learn.microsoft.com/en-us/answers/questions/1051970/aks-with-kubernetes-service-connection-returns-cou
@@ -38,3 +37,5 @@ kubectl delete pods e2e-results-retrieve --namespace e2e
 kubectl exec --stdin --tty e2e-x6bhc --namespace e2e -- sh
 
 kubectl logs --namespace e2e e2e-x6bhc
+5vdjjsqqcv6sgnwfjkgt2jcyy3rgjrsm6kg4yf6h3ocwf7kzduua
+curl -L "-u", ":5vdjjsqqcv6sgnwfjkgt2jcyy3rgjrsm6kg4yf6h3ocwf7kzduua" 'https://dev.azure.com/dejvis/wdi23/_apis/pipelines?api-version=7.0'

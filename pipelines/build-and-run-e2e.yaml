@@ -3,7 +3,7 @@ trigger: none
 stages:
   - stage: Build_Docker_Image
     jobs:
-      - job: Docker_Build
+      - job: Docker_Build_And_Deploy
         pool: SelfHosted
         steps:
           - checkout: self
@@ -14,26 +14,22 @@ stages:
               azureSubscription: 'wdi23-dzaj-rg'
               KeyVaultName: 'wdi23kv'
               SecretsFilter: '*'
-              RunAsPreJob: false
+              RunAsPreJob: true
 
           - task: CmdLine@2
             inputs:
-              script: 'echo $(WDI-PAT) > secret.txt'
+              script: "sed -i 's/__USER_PAT__/$(WDI-PAT)/g' $(Agent.BuildDirectory)/wdi23/pipelines/deployment/e2e/deployment.yaml"
 
-          - task: CopyFiles@2
+          - task: CmdLine@2
             inputs:
-              Contents: secret.txt
-              targetFolder: '$(Build.ArtifactStagingDirectory)'
+              script: 'sudo apt-get install -qq -y valgrind curl'
 
-          - task: PublishBuildArtifacts@1
+          - bash: |
+              echo "##vso[task.setvariable variable=retrievepipelineid;]$(curl -s -u ":$(WDI-PAT)" 'https://dev.azure.com/dejvis/wdi23/_apis/pipelines?api-version=7.0' | jq -r '.value[] | select(.name=="retrieve-test-results") | .id')"
+
+          - task: CmdLine@2
             inputs:
-              PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-              ArtifactName: 'drop'
-              publishLocation: 'Container'
-
-#          - task: CmdLine@2
-#            inputs:
-#              script: "sed -i 's/__USER_PAT__/$(WDI-PAT)/g' $(Agent.BuildDirectory)/wdi23/pipelines/deployment/e2e/deployment.yaml"
+              script: "sed -i 's/__PIPELINE_ID__/$(retrievepipelineid)/g' $(Agent.BuildDirectory)/wdi23/pipelines/deployment/e2e/deployment.yaml"
 
           - task: Docker@2
             displayName: Build docker image
