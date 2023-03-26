@@ -3,6 +3,8 @@ FROM cypress/browsers:node-18.14.1-chrome-111.0.5563.64-1-ff-111.0-edge-111.0.16
 WORKDIR /workdir
 COPY ./ ./
 
+RUN apt-get -y update; apt-get -y install curl
+
 RUN npm install
 
 ENTRYPOINT ["npm", "run", "test"]
