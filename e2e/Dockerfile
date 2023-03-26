@@ -5,4 +5,6 @@ COPY ./ ./
 
 RUN npm install
 
-ENTRYPOINT ["npm", "run", "test"]
+RUN chmod +x ./entrypoint.sh
+
+ENTRYPOINT ["./entrypoint.sh"]
