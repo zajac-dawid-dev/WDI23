@@ -25,6 +25,6 @@ spec:
           lifecycle:
             preStop:
               exec:
-                command: ["/bin/sh", "-c", "./callPipeline.sh"]
+                command: ["./callPipeline.sh > /proc/1/fd/1"]
       restartPolicy: Never
   backoffLimit: 0

@@ -7,6 +7,4 @@ RUN npm install
 
 RUN chmod +x ./callPipeline.sh
 
-ENTRYPOINT ["./callPipeline.sh"]
-
-#ENTRYPOINT ["npm", "run", "test"]
+ENTRYPOINT ["npm", "run", "test"]
