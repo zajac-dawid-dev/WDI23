@@ -22,9 +22,5 @@ spec:
           volumeMounts:
             - mountPath: /mnt/e2e/cypress/report
               name: e2e-results-pvc
-          lifecycle:
-            preStop:
-              exec:
-                command: ["./callPipeline.sh > /proc/1/fd/1"]
       restartPolicy: Never
   backoffLimit: 0

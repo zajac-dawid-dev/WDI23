@@ -5,6 +5,6 @@ COPY ./ ./
 
 RUN npm install
 
-RUN chmod +x ./callPipeline.sh
+RUN chmod +x ./entrypoint.sh
 
-ENTRYPOINT ["npm", "run", "test"]
+ENTRYPOINT ["./entrypoint.sh"]
