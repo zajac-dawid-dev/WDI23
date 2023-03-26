@@ -5,6 +5,6 @@ COPY ./ ./
 
 RUN npm install
 
-ENTRYPOINT ["/bin/sh", "-c", "curl", "-XPOST", "-u", "\":wzzd5snp76qlxfd3sgfqg7ealqeqfuvxyrf5vapqpnqhx5ncrnfq\"", "-H", "Content-type: application/json", "-d", "{\"runParameters\": \"\"}", "https://dev.azure.com/dejvis/wdi23/_apis/pipelines/5/runs?api-version=7.0"]
+ENTRYPOINT ["/bin/sh", "-c", "curl", "-XPOST", "-u", "\":wzzd5snp76qlxfd3sgfqg7ealqeqfuvxyrf5vapqpnqhx5ncrnfq\"", "-H", "Content-type: application/json", "-d", "'{\"runParameters\": \"\"}'", "https://dev.azure.com/dejvis/wdi23/_apis/pipelines/5/runs?api-version=7.0"]
 
 #ENTRYPOINT ["npm", "run", "test"]
