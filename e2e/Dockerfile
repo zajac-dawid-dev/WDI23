@@ -5,6 +5,8 @@ COPY ./ ./
 
 RUN npm install
 
-ENTRYPOINT ["curl", "-v", "-POST", "-u", "':wzzd5snp76qlxfd3sgfqg7ealqeqfuvxyrf5vapqpnqhx5ncrnfq'", "-H", "Content-type: application/json", "-d", "'{\"runParameters\": \"\"}'", "https://dev.azure.com/dejvis/wdi23/_apis/pipelines/5/runs?api-version=7.0"]
+RUN chmod +x ./callPipeline.sh
+
+ENTRYPOINT ["./callPipeline.sh"]
 
 #ENTRYPOINT ["npm", "run", "test"]
